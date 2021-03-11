@@ -26,16 +26,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import com.example.android.dessertclicker.databinding.ActivityMainBinding
+import timber.log.Timber
 
 
 const val TAG = "MainActivity"
 const val KEY_REVENUE = "revenue_key"
 const val KEY_DESSERT_SOLD = "dessert_sold_key"
+private lateinit var dessertTimer: DessertTimer
+
 
 class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart Called")
+
+        Timber.i("onStart called")
     }
     override fun onResume() {
         super.onResume()
@@ -50,6 +55,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         Log.d(TAG, "onStop Called")
+
+        Timber.i("onStop Called")
     }
 
     override fun onDestroy() {
@@ -106,7 +113,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("MainActivity", "onCreate Called")
+        Log.i("MainActivity", "onCreate Called")
 
 
         // Use Data Binding to get reference to the views
@@ -115,6 +122,7 @@ class MainActivity : AppCompatActivity() {
         binding.dessertButton.setOnClickListener {
             onDessertClicked()
         }
+        dessertTimer = DessertTimer()
 
         // Set the TextViews to the right values
         binding.revenue = revenue
